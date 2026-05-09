@@ -2,7 +2,7 @@ import argparse
 import os
 import subprocess
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional
+from typing import Dict, Iterable, List
 
 import chromadb
 from chromadb.config import Settings

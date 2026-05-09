@@ -24,7 +24,7 @@ def get_changed_files(last_commit: str, repo_path: str) -> List[str]:
 
 def reindex_files(changed_files: List[str], repo_path: str, collection):
     for file in changed_files:
-        normalized_file = f'/{file.replace("\\", "/").lstrip("/")}'
+        normalized_file = "/" + file.replace("\\", "/").lstrip("/")
         collection.delete(where={"file": normalized_file})
 
         file_path = Path(repo_path) / file

@@ -1,14 +1,13 @@
 import os
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 ROOT = Path(__file__).resolve().parents[1]
-import sys
-
 sys.path.insert(0, str(ROOT / "indexer"))
 
 import ado_extractor
@@ -46,9 +45,7 @@ class CodeExtractorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp_dir:
             repo_path = Path(temp_dir)
             init_git_repo(repo_path)
-            file_path = create_file(
-                repo_path, "src/Example.cs", "public class Example { }\n"
-            )
+            create_file(repo_path, "src/Example.cs", "public class Example { }\n")
             subprocess.run(
                 ["git", "add", "."], cwd=repo_path, check=True, capture_output=True
             )
@@ -240,7 +237,7 @@ class IncrementalIndexerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp_dir:
             repo_path = Path(temp_dir)
             file_name = "Example.cs"
-            file_path = create_file(repo_path, file_name, "public class Example { }\n")
+            create_file(repo_path, file_name, "public class Example { }\n")
 
             collection = MagicMock()
             collection.delete = MagicMock()

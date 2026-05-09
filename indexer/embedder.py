@@ -1,5 +1,5 @@
 import os
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List
 
 import httpx
 from dotenv import load_dotenv
