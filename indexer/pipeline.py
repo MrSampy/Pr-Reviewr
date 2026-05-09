@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import Dict, Iterable, List
 
 import chromadb
-from chromadb.config import Settings
 
 import ado_extractor
 import chunker
@@ -121,7 +120,7 @@ def _prepare_pr_comment_items() -> List[dict]:
 def index_repository(
     repo_path: str = ".",
     collection_name: str = DEFAULT_COLLECTION_NAME,
-    persist_directory: Optional[str] = None,
+    persist_directory: str | None = None,
     batch_size: int = DEFAULT_BATCH_SIZE,
 ) -> None:
     repo_path = str(Path(repo_path).resolve())

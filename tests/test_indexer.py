@@ -7,16 +7,13 @@ import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "indexer"))
-
-import ado_extractor
-import chunker
-import code_extractor
-import embedder
-import incremental_indexer
-import pipeline
-import state
+import indexer.ado_extractor as ado_extractor
+import indexer.chunker as chunker
+import indexer.code_extractor as code_extractor
+import indexer.embedder as embedder
+import indexer.incremental_indexer as incremental_indexer
+import indexer.pipeline as pipeline
+import indexer.state as state
 
 HAS_GIT = shutil.which("git") is not None
 
