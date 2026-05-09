@@ -2,11 +2,11 @@ import subprocess
 from pathlib import Path
 from typing import List
 
-import ado_extractor
-import chunker
-import code_extractor
-import embedder
-import state
+from . import ado_extractor
+from . import chunker
+from . import code_extractor
+from . import embedder
+from . import state
 
 SUPPORTED_EXTENSIONS = {".cs", ".js", ".cshtml"}
 

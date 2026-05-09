@@ -20,5 +20,10 @@ dependencies = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.mypy]
+python_version = "3.14"
+ignore_missing_imports = true
+follow_imports = "silent"
+
 [tool.hatch.build.targets.wheel]
 packages = ["indexer", "api", "reviewer", "ado_client"]

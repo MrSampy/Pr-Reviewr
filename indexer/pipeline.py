@@ -2,16 +2,16 @@ import argparse
 import os
 import subprocess
 from pathlib import Path
-from typing import Dict, Iterable, List
+from typing import Any, Dict, Iterable, List
 
 import chromadb
 
-import ado_extractor
-import chunker
-import code_extractor
-import embedder
-import incremental_indexer
-import state
+from . import ado_extractor
+from . import chunker
+from . import code_extractor
+from . import embedder
+from . import incremental_indexer
+from . import state
 
 DEFAULT_COLLECTION_NAME = "pr-reviewr"
 DEFAULT_BATCH_SIZE = 16
@@ -28,13 +28,13 @@ def _group_by_file(items: List[dict]) -> Dict[str, List[dict]]:
     return grouped
 
 
-def get_chroma_client(persist_directory: str | None = None) -> chromadb.ClientAPI:
+def get_chroma_client(persist_directory: str | None = None) -> Any:
     if persist_directory:
         return chromadb.PersistentClient(path=persist_directory)
     return chromadb.HttpClient(host="localhost", port=8000)
 
 
-def get_collection(client: chromadb.Client, name: str):
+def get_collection(client: Any, name: str) -> Any:
     if hasattr(client, "get_or_create_collection"):
         return client.get_or_create_collection(name=name)
 
