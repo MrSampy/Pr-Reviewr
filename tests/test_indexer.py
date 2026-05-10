@@ -111,7 +111,7 @@ class EmbedderTests(unittest.TestCase):
             list(embedder._batch([1, 2, 3, 4, 5], 2)), [[1, 2], [3, 4], [5]]
         )
 
-    @patch("embedder.httpx.Client")
+    @patch("indexer.embedder.httpx.Client")
     def test_embed_chunks_posts_to_ollama(self, mock_client_class):
         mock_response = MagicMock()
         mock_response.json.return_value = {
@@ -241,11 +241,11 @@ class IncrementalIndexerTests(unittest.TestCase):
 
             with (
                 patch(
-                    "incremental_indexer.chunker.determine_language",
+                    "indexer.incremental_indexer.chunker.determine_language",
                     return_value="csharp",
                 ),
                 patch(
-                    "incremental_indexer.chunker.chunk_source",
+                    "indexer.incremental_indexer.chunker.chunk_source",
                     return_value=[
                         {
                             "content": "public void DoWork() {}",
@@ -256,11 +256,11 @@ class IncrementalIndexerTests(unittest.TestCase):
                     ],
                 ),
                 patch(
-                    "incremental_indexer.code_extractor.get_git_info",
+                    "indexer.incremental_indexer.code_extractor.get_git_info",
                     return_value=("2026-01-01", "Test User"),
                 ),
                 patch(
-                    "incremental_indexer.embedder.embed_chunks",
+                    "indexer.incremental_indexer.embedder.embed_chunks",
                     return_value=[[0.1, 0.2]],
                 ),
             ):
@@ -281,9 +281,9 @@ class IncrementalIndexerTests(unittest.TestCase):
         collection.add = MagicMock()
 
         with (
-            patch("incremental_indexer.state.get_last_pr_id", return_value=5),
+            patch("indexer.incremental_indexer.state.get_last_pr_id", return_value=5),
             patch(
-                "incremental_indexer.ado_extractor.extract_pr_comments_from_ado",
+                "indexer.incremental_indexer.ado_extractor.extract_pr_comments_from_ado",
                 return_value=[
                     {
                         "file": "/Example.cs",
@@ -296,9 +296,9 @@ class IncrementalIndexerTests(unittest.TestCase):
                 ],
             ),
             patch(
-                "incremental_indexer.embedder.embed_chunks", return_value=[[0.1, 0.2]]
+                "indexer.incremental_indexer.embedder.embed_chunks", return_value=[[0.1, 0.2]]
             ),
-            patch("incremental_indexer.state.set_last_pr_id") as mock_set_last_pr_id,
+            patch("indexer.incremental_indexer.state.set_last_pr_id") as mock_set_last_pr_id,
         ):
             incremental_indexer.update_pr_comments(collection)
 
