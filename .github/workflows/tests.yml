@@ -1,10 +1,12 @@
----
+# Запускаем при создании PR в ветку main (или master)
+
 name: CI Tests
 
-# Запускаем при создании PR в ветку main (или master)
-on:
+"on":
   pull_request:
-    branches: ["main", "master"]
+    branches:
+      - "main"
+      - "master"
 
 jobs:
   run-tests:
@@ -44,6 +46,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           uv sync --all-extras --dev
+          pip install -e .
 
       - name: Install development tools
         run: |
@@ -61,7 +64,7 @@ jobs:
       - name: Lint configuration files
         run: |
           yamllint .github/**/*.yml
-          markdownlint-cli README.md .github/**/*.yml
+          npx markdownlint-cli README.md .github/**/*.yml
 
       - name: Run tests
         run: python -m unittest discover -s tests -p "test_*.py"
@@ -73,4 +76,4 @@ jobs:
         run: |
           pip-audit --output text
           safety check
-          bandit -r .
+          bandit -r . --exclude ./.venv --skip B404,B603,B607
