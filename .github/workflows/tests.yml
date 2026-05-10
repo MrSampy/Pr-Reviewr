@@ -76,4 +76,4 @@ jobs:
         run: |
           pip-audit --output text
           safety check
-          bandit -r .
+          bandit -r . --exclude ./.venv
