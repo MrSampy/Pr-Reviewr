@@ -1,7 +1,7 @@
----
+# Запускаем при создании PR в ветку main (или master)
+
 name: CI Tests
 
-# Запускаем при создании PR в ветку main (или master)
 "on":
   pull_request:
     branches:
