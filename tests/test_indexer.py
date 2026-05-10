@@ -296,9 +296,12 @@ class IncrementalIndexerTests(unittest.TestCase):
                 ],
             ),
             patch(
-                "indexer.incremental_indexer.embedder.embed_chunks", return_value=[[0.1, 0.2]]
+                "indexer.incremental_indexer.embedder.embed_chunks",
+                return_value=[[0.1, 0.2]],
             ),
-            patch("indexer.incremental_indexer.state.set_last_pr_id") as mock_set_last_pr_id,
+            patch(
+                "indexer.incremental_indexer.state.set_last_pr_id"
+            ) as mock_set_last_pr_id,
         ):
             incremental_indexer.update_pr_comments(collection)
 
