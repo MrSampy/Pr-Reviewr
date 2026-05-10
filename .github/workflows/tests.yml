@@ -2,9 +2,11 @@
 name: CI Tests
 
 # Запускаем при создании PR в ветку main (или master)
-on:
+"on":
   pull_request:
-    branches: ["main", "master"]
+    branches:
+      - "main"
+      - "master"
 
 jobs:
   run-tests:
@@ -61,7 +63,7 @@ jobs:
       - name: Lint configuration files
         run: |
           yamllint .github/**/*.yml
-          markdownlint-cli README.md .github/**/*.yml
+          npx markdownlint-cli README.md .github/**/*.yml
 
       - name: Run tests
         run: python -m unittest discover -s tests -p "test_*.py"
