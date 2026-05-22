@@ -3,7 +3,8 @@
     "allow": [
       "PowerShell(cmd /c \"dir D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\.venv\\\\Scripts\")",
       "PowerShell(cmd /c \"D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\.venv\\\\Scripts\\\\pip3.exe install json-repair --quiet && echo ok\")",
-      "PowerShell(cmd /c \"D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\.venv\\\\Scripts\\\\black.exe D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\api\\\\webhook_handler.py D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\tests\\\\e2e\\\\e2e_test.py D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\reviewer\\\\response_parser.py D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\ado_client\\\\ado_client.py D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\reviewer\\\\pipeline.py\")"
+      "PowerShell(cmd /c \"D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\.venv\\\\Scripts\\\\black.exe D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\api\\\\webhook_handler.py D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\tests\\\\e2e\\\\e2e_test.py D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\reviewer\\\\response_parser.py D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\ado_client\\\\ado_client.py D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\reviewer\\\\pipeline.py\")",
+      "PowerShell(cmd /c \"D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\.venv\\\\Scripts\\\\black.exe D:\\\\Studying\\\\prctc\\\\Pr-Reviewr\\\\api\\\\webhook_handler.py\")"
     ]
   }
 }

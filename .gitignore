@@ -227,3 +227,6 @@ logs/
 .vscode/
 
 session-summary.md
+
+# Claude Code
+.claude/settings.local.json
