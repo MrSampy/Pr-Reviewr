@@ -2,6 +2,13 @@ import json
 import logging
 from pathlib import Path
 
+try:
+    from json_repair import repair_json as _repair_json
+
+    _HAS_REPAIR = True
+except ImportError:
+    _HAS_REPAIR = False
+
 logger = logging.getLogger(__name__)
 
 _VALID_SEVERITIES = {"critical", "warning", "suggestion"}
@@ -70,10 +77,27 @@ def parse_response(raw: str, diff_files: list[str]) -> list[dict]:
     try:
         data = json.loads(cleaned)
     except json.JSONDecodeError as exc:
-        logger.error(
-            "Failed to parse LLM response as JSON: %s\nRaw (cleaned): %r", exc, cleaned
-        )
-        return []
+        if _HAS_REPAIR:
+            try:
+                repaired = _repair_json(cleaned, return_objects=True)
+                data = repaired if isinstance(repaired, dict) else {}
+                if data:
+                    logger.warning("JSON repaired after parse error: %s", exc)
+                else:
+                    logger.error("JSON repair produced no usable data: %r", cleaned)
+                    return []
+            except Exception as repair_exc:
+                logger.error(
+                    "JSON repair failed: %s\nRaw (cleaned): %r", repair_exc, cleaned
+                )
+                return []
+        else:
+            logger.error(
+                "Failed to parse LLM response as JSON: %s\nRaw (cleaned): %r",
+                exc,
+                cleaned,
+            )
+            return []
 
     if not isinstance(data, dict):
         logger.error(

@@ -225,3 +225,8 @@ chroma_db/
 logs/
 
 .vscode/
+
+session-summary.md
+
+# Claude Code
+.claude/settings.local.json

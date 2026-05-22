@@ -1,7 +1,7 @@
 from typing import Any
 
 _MAX_CHUNK_CHARS = 300
-_MAX_DIFF_CHARS = 2000
+_MAX_DIFF_CHARS = 5000  # safety net; pipeline splits before this threshold
 _MAX_COMMENTS = 10
 _MAX_CHUNKS = 5
 
@@ -14,7 +14,7 @@ Response schema:
 {{
   "comments": [
     {{
-      "file": "/path/to/file.cs",
+      "file": "/src/Services/OrderService.cs",
       "line": 42,
       "severity": "critical|warning|suggestion",
       "problem": "description of the problem in English",
@@ -24,10 +24,12 @@ Response schema:
 }}
 
 Rules:
-- Comment only on lines present in the diff (lines starting with "+").
+- Comment on added lines (starting with "+") AND on removed lines (starting with "-") if their removal introduces a security issue or bug.
+- Do NOT flag changes where old code ("-") is replaced by cleaner or equivalent code ("+"). Only flag regressions and new problems.
 - Do not invent problems. If you are not confident, omit the comment.
 - Return at most {max_comments} comments ordered by severity (critical first).
 - If there are no problems, return {{"comments": []}}.
+- In the "fix" field use single-quoted strings for code examples (e.g. 'value' not "value") to avoid breaking JSON.
 - Output raw JSON only — no markdown wrapper, no explanation outside the JSON object.\
 """
 
