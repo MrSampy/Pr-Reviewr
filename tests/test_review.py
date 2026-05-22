@@ -113,12 +113,18 @@ class ReviewDiffPipelineTests(unittest.TestCase):
         for c in comments:
             self.assertEqual(c["severity"], c["severity"].lower())
 
-    @patch("reviewer.pipeline.llm_review", side_effect=RuntimeError("Ollama is not running"))
+    @patch(
+        "reviewer.pipeline.llm_review",
+        side_effect=RuntimeError("Ollama is not running"),
+    )
     @patch("reviewer.pipeline.retrieve", return_value=[])
     def test_llm_error_returns_empty(self, *_):
         self.assertEqual(review_diff(_DIFF_CS), [])
 
-    @patch("reviewer.pipeline.llm_review", side_effect=TimeoutError("LLM timeout after 120s"))
+    @patch(
+        "reviewer.pipeline.llm_review",
+        side_effect=TimeoutError("LLM timeout after 120s"),
+    )
     @patch("reviewer.pipeline.retrieve", return_value=[])
     def test_llm_timeout_returns_empty(self, *_):
         self.assertEqual(review_diff(_DIFF_CS), [])

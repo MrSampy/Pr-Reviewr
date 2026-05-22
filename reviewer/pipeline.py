@@ -40,8 +40,7 @@ def review_diff(diff: str) -> list[dict]:
 
     diff_files = extract_diff_files(diff)
     supported = [
-        f for f in diff_files
-        if Path(f).suffix.lower() in _CS_SUFFIXES | _JS_SUFFIXES
+        f for f in diff_files if Path(f).suffix.lower() in _CS_SUFFIXES | _JS_SUFFIXES
     ]
     if not supported:
         return []
@@ -96,7 +95,9 @@ index 0000000..1111111 100644
             except (UnicodeDecodeError, ValueError):
                 continue
         else:
-            print(f"Cannot decode file {diff_path}: unsupported encoding", file=sys.stderr)
+            print(
+                f"Cannot decode file {diff_path}: unsupported encoding", file=sys.stderr
+            )
             sys.exit(1)
     else:
         print("No diff file specified — using built-in test diff.\n")

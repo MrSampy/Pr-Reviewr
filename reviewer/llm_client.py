@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 _DEFAULT_URL = "http://localhost:11434"
-_DEFAULT_MODEL = "qwen2.5-coder:1.5b" # "qwen2.5-coder:7b"
+_DEFAULT_MODEL = "qwen2.5-coder:1.5b"  # "qwen2.5-coder:7b"
 _TIMEOUT = 120
 _AVAILABILITY_TIMEOUT = 5
 
@@ -53,7 +53,10 @@ def is_available() -> bool:
         response.raise_for_status()
         tags = response.json()
         model_names = [m.get("name", "") for m in tags.get("models", [])]
-        return any(name == model or name.startswith(model.split(":")[0]) for name in model_names)
+        return any(
+            name == model or name.startswith(model.split(":")[0])
+            for name in model_names
+        )
     except Exception:
         return False
 

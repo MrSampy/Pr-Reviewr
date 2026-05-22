@@ -37,7 +37,8 @@ def validate_comment(comment: dict, diff_files: list[str]) -> bool:
     # match by suffix: "/src/Services/OrderService.cs" matches "OrderService.cs"
     comment_path = Path(file_val)
     matched = any(
-        comment_path == Path(df) or comment_path.parts[-len(Path(df).parts) :] == Path(df).parts
+        comment_path == Path(df)
+        or comment_path.parts[-len(Path(df).parts) :] == Path(df).parts
         for df in diff_files
     )
     if not matched:
@@ -69,11 +70,15 @@ def parse_response(raw: str, diff_files: list[str]) -> list[dict]:
     try:
         data = json.loads(cleaned)
     except json.JSONDecodeError as exc:
-        logger.error("Failed to parse LLM response as JSON: %s\nRaw (cleaned): %r", exc, cleaned)
+        logger.error(
+            "Failed to parse LLM response as JSON: %s\nRaw (cleaned): %r", exc, cleaned
+        )
         return []
 
     if not isinstance(data, dict):
-        logger.error("Expected a JSON object at the top level, got %s", type(data).__name__)
+        logger.error(
+            "Expected a JSON object at the top level, got %s", type(data).__name__
+        )
         return []
 
     comments = data.get("comments")
@@ -97,7 +102,7 @@ def extract_diff_files(diff: str) -> list[str]:
     files: list[str] = []
     for line in diff.splitlines():
         if line.startswith("+++ b/"):
-            path = line[len("+++ b/"):].strip()
+            path = line[len("+++ b/") :].strip()
             if path:
                 files.append(path)
     return files
