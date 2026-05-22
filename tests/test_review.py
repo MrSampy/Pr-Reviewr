@@ -51,7 +51,7 @@ index 0000000..1111111 100644
 """
 
 _VALID_COMMENT = {
-    "file": "src/Program.cs",
+    "file": "/src/Program.cs",
     "line": 6,
     "severity": "critical",
     "problem": "Hardcoded API key found in source code.",
@@ -142,7 +142,7 @@ class ReviewDiffPipelineTests(unittest.TestCase):
     @patch("reviewer.pipeline.llm_review", return_value=_LLM_JSON)
     @patch("reviewer.pipeline.retrieve", return_value=[])
     def test_javascript_diff_runs(self, _, mock_llm):
-        js_comment = {**_VALID_COMMENT, "file": "src/app.js"}
+        js_comment = {**_VALID_COMMENT, "file": "/src/app.js"}
         mock_llm.return_value = json.dumps({"comments": [js_comment]})
         comments = review_diff(_DIFF_JS)
         self.assertIsInstance(comments, list)
