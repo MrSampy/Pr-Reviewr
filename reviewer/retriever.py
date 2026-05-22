@@ -93,7 +93,7 @@ def retrieve(diff: str) -> list[dict[str, Any]]:
         query_vector = vectors[0]
 
         response = collection.query(
-            query_embeddings=[query_vector],
+            query_embeddings=[query_vector],  # type: ignore[arg-type]
             n_results=10,
             where={"language": language},
             include=["documents", "metadatas", "distances"],
