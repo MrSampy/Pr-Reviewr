@@ -75,5 +75,5 @@ jobs:
       - name: Security checks
         run: |
           pip-audit --output text
-          safety check
+          safety scan --output text
           bandit -r . --exclude ./.venv --skip B404,B603,B607
