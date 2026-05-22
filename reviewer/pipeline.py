@@ -2,11 +2,11 @@ import logging
 import sys
 from pathlib import Path
 
-from llm_client import review as llm_review
-from prompt_builder import build as build_prompt
-from prompt_builder import estimate_tokens
-from response_parser import extract_diff_files, parse_response
-from retriever import retrieve
+from .llm_client import review as llm_review
+from .prompt_builder import build as build_prompt
+from .prompt_builder import estimate_tokens
+from .response_parser import extract_diff_files, parse_response
+from .retriever import retrieve
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +67,7 @@ def review_diff(diff: str) -> list[dict]:
     return comments
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # run as: python -m reviewer.pipeline [diff_file]
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
     _TEST_DIFF = """\
