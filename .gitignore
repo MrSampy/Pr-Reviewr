@@ -225,3 +225,5 @@ chroma_db/
 logs/
 
 .vscode/
+
+session-summary.md
